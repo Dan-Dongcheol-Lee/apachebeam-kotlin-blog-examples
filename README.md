@@ -1,17 +1,22 @@
-# Dataflow Kotlin
+# Apache Beam kotlin blog examples
 
-Dataflow kotlin with nice DSLs reduces boilerplate code and helps us to create easily pipelines 
-for streaming and batch modes
+Apache Beam kotlin blog examples
 
 
 ### Quick Start
 
 The project environment:
-* JDK 1.8+
-* Kotlin 1.2+
-* ApacheBeam 2.x
+* Refer to build.gradle.kts
+* run WordCount kotlin example:
 
 
-Add this dependency into the project to use dataflow templates
+    ./make.sh runLocal local apachebeam.kotlin.examples.wordcount.WordCount --inputFile=./src/main/resources/apachebeam/kotlin/examples/wordcount/simple.txt --output=./output.txt
 
-* compile 'com.papercut.robusta:dataflow-kotlin:1.x.x'
+* WordCount pipeline will run on local and produce the output file in current directory.
+* WordCount pipeline can run on Google Cloud Dataflow if you have a project setup in your local. 
+
+
+    ./make.sh runCloud <your-project-id> apachebeam.kotlin.examples.wordcount.WordCount --output=<gs://your-cloud-storage-bucket>/output.txt
+
+* inputFile option is defined by default in WordCount options, so that it will run with the input file and produce output files in <gs://your-cloud-storage-bucket>
+
