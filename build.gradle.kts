@@ -30,8 +30,8 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "dataflow-kotlin"
-version = "1.0.8"
+group = "apachebeam-kotlin"
+version = "1.0.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
