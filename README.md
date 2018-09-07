@@ -2,6 +2,8 @@
 
 Apache Beam kotlin blog examples
 
+https://blog.papercut.com/apache-beam-in-kotlin-to-reduce-the-boilerplate-code/
+
 
 ### Quick Start
 
