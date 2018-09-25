@@ -23,42 +23,40 @@ object KPipe {
 }
 
 fun Pipeline.fromText(
-        name: String? = null,
+        name: String = "Read from Text",
         path: String): PCollection<String> {
-    return this.apply(name?: "Read from Text",
+    return this.apply(name,
             TextIO.read().from(path))
 }
 
 fun PCollection<String>.toText(
-        name: String? = null,
+        name: String = "Write to Text",
         filename: String
 ): PDone {
-    return this.apply(name?: "Write to Text",
+    return this.apply(name,
             TextIO.write().to(filename))
 }
 
 
 inline fun <I, reified O> PCollection<I>.map(
-        name: String? = null,
+        name: String = "map to ${O::class.simpleName}",
         noinline transform: (I) -> O): PCollection<O> {
-    val pc = this.apply(name ?: "map to ${O::class.simpleName}",
+    val pc = this.apply(name,
             MapElements.into(TypeDescriptor.of(O::class.java))
                     .via(transform))
     return pc.setCoder(NullableCoder.of(pc.coder))
 }
 
 inline fun <I, reified O> PCollection<I>.flatMap(
-        name: String? = null,
+        name: String = "flatMap to ${O::class.simpleName}",
         noinline transform: (I) -> Iterable<O>): PCollection<O> {
-    val pc = this.apply(name ?: "flatMap to ${O::class.simpleName}",
-            FlatMapElements.into(TypeDescriptor.of(O::class.java))
+    val pc = this.apply(name, FlatMapElements.into(TypeDescriptor.of(O::class.java))
                     .via(transform))
     return pc.setCoder(NullableCoder.of(pc.coder))
 }
 
 fun <I> PCollection<I>.countPerElement(
-        name: String? = null): PCollection<KV<I, Long>> {
-    return this.apply(name ?: "count per element",
-            Count.perElement<I>())
+        name: String = "count per element"): PCollection<KV<I, Long>> {
+    return this.apply(name, Count.perElement<I>())
             .setTypeDescriptor(object : TypeDescriptor<KV<I, Long>>() {})
 }
